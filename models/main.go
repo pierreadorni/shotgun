@@ -9,12 +9,15 @@ import (
 
 var db *gorm.DB
 
-// timer is a countdown timer that will close the database connection after 1s.
+// timer is a countdown timer that will close the database connection after 10s.
 // It is reset every time the GetDatabase function is called.
 var timer *time.Timer
 
 func Migrate(db *gorm.DB) error {
-	if err := db.AutoMigrate(&Account{}); err != nil {
+	if err := db.AutoMigrate(
+		&Event{},
+		&User{},
+	); err != nil {
 		return err
 	}
 	return nil
